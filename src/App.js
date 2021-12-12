@@ -5,19 +5,34 @@ import { useEffect, useState } from "react"
 import { Route, Routes } from "react-router-dom"
 import { toast } from "react-toastify"
 import Sidebar from "./components/Sidebar"
+import Cast from "./pages/Cast"
 import Films from "./pages/Films"
+import Genre from "./pages/Genre"
 import FilmsContext from "./utils/FilmsContext"
 
 function App() {
   const [films, setFilms] = useState([])
+  const [genres, setGenres] = useState([])
+  const [casts, setCasts] = useState([])
 
   const getFilms = async () => {
     const response = await axios.get("http://localhost:5000/api/films")
     setFilms(response.data)
   }
+  const getGenres = async () => {
+    const response = await axios.get("http://localhost:5000/api/genres")
+    setGenres(response.data)
+  }
+
+  const getCasts = async () => {
+    const response = await axios.get("http://localhost:5000/api/casts")
+    setCasts(response.data)
+  }
 
   useEffect(() => {
     getFilms()
+    getGenres()
+    getCasts()
   }, [])
 
   const deleteFilm = async filmId => {
@@ -35,9 +50,27 @@ function App() {
     }
   }
 
+  const deleteGenre = async genreId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("genre deleted")
+      getFilms()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
   const store = {
     films,
     deleteFilm,
+    deleteGenre,
+    genres,
+    casts,
   }
 
   return (
@@ -49,6 +82,8 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
+            <Route path="/genres" element={<Genre />} />
+            <Route path="/casts" element={<Cast />} />
           </Routes>
         </Box>
       </Box>
