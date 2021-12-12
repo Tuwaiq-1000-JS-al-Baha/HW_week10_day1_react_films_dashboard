@@ -24,7 +24,7 @@ function FilmViewModal(props) {
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Genres:</strong>
-            <ListGroup>
+            <ListGroup> 
               {film.genres.map(genre => (
                 <ListGroup.Item>{genre.name}</ListGroup.Item>
               ))}
