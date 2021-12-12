@@ -21,7 +21,7 @@ function NavbarItem() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link className="nav-link" to="/films">
+            <Link className="nav-link" to="/film">
               Films
             </Link>
             <NavDropdown title="Cast" id="basic-nav-dropdown">

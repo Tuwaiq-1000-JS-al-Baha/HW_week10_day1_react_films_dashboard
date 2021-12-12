@@ -20,7 +20,7 @@ function FilmViewModal(props) {
             <img src={film.poster} style={{ objectFit: "contain", height: "200px", width: "100%" }} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Rating:</strong> {film.ratingAverage}
+            <strong>Rating:</strong> {film.ratingAverage} 
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Genres:</strong>
