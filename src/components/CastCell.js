@@ -1,35 +1,34 @@
 import { useState } from "react"
-import { Table, Button } from "react-bootstrap"
-import CastDeleteModel from "./CastDeleteModal"
-import CastViewModel from "./CastViewModal"
-
+import { Button } from "react-bootstrap"
+import CastDeleteModal from "./CastDeleteModal"
+import CastViewModal from "./CastViewModal"
 
 function CastCell(props) {
-  const { casts } = props
+  const { cast } = props
   const [viewShow, setViewShow] = useState(false)
   const [deleteShow, setDeleteShow] = useState(false)
-
   return (
     <tr style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>
-      <td style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{casts._id}</td>
-      <td>{casts.firstName}</td>
-      <td>{casts.lastName}</td>
+      <td style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{cast._id}</td>
+      <td style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>{cast.firstName}</td>
+      <td style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>{cast.lastName}</td>
+      <td style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>{cast.type}</td>
       <td>
-        <img src={casts.photo} style={{ objectFit: "contain", height: "100px", width: "100%" }} />
+        <img src={cast.Photo} style={{ objectFit: "contain", height: "100px", width: "100%" }} alt="" />
       </td>
-      <td>{casts.type}</td>
       <td>
-        <Button variant="info" className="me-2" onClick={() => setViewShow(true) }>
+        <Button variant="info" className="me-2" onClick={() => setViewShow(true)}>
           View
         </Button>
         <Button variant="success" className="me-2">
           Edit
         </Button>
-        <Button variant="danger" onClick={() => setDeleteShow(true) } >Delete</Button>
+        <Button variant="danger" onClick={() => setDeleteShow(true)}>
+          Delete
+        </Button>
       </td>
-      <CastViewModel show={viewShow} setShow={setViewShow} cast={casts} />
-      <CastDeleteModel show={deleteShow} setShow={setDeleteShow} castId={casts._id} />
-
+      <CastViewModal show={viewShow} setShow={setViewShow} cast={cast} />
+      <CastDeleteModal show={deleteShow} setShow={setDeleteShow} castId={cast._id} />
     </tr>
   )
 }

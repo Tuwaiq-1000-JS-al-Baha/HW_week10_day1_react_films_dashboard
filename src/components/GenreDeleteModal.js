@@ -1,10 +1,10 @@
 import { useContext } from "react"
-import { Modal, Button } from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
 import FilmsContext from "../utils/FilmsContext"
 
-function GenreDeleteModel(props) {
-  const { show, setShow, genreId } = props
-  const { deleteGenre } = useContext(FilmsContext)
+function GenreDeleteModal(props) {
+  const { deleteGenre} = useContext(FilmsContext)
+  const { show, setShow,genreId} = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
@@ -23,4 +23,4 @@ function GenreDeleteModel(props) {
   )
 }
 
-export default GenreDeleteModel
+export default GenreDeleteModal

@@ -1,5 +1,6 @@
-import { Button, Image, ListGroup, Modal } from "react-bootstrap"
-function GenreViewModel(props) {
+import { Button, ListGroup, Modal } from "react-bootstrap"
+
+function GenreViewModal(props) {
   const { show, setShow, genre } = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
@@ -7,11 +8,11 @@ function GenreViewModel(props) {
         <Modal.Title>View Genre</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
+        <ListGroup>
           <ListGroup.Item>
-            <strong> Name:</strong> {genre.name}
+            <strong>Genre:</strong> {genre.name}
           </ListGroup.Item>
-
+        </ListGroup>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShow(false)}>
@@ -22,4 +23,4 @@ function GenreViewModel(props) {
   )
 }
 
-export default GenreViewModel
+export default GenreViewModal

@@ -1,7 +1,7 @@
 import { Button, ListGroup, Modal } from "react-bootstrap"
 
-function CastViewModel(props) {
-    const {show , setShow , cast} = props
+function CastViewModal(props) {
+  const { show, setShow, cast } = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
@@ -13,15 +13,20 @@ function CastViewModel(props) {
             <strong>First Name:</strong> {cast.firstName}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>First Name:</strong> {cast.lastName}
+            <strong>Last Name:</strong> {cast.lastName}
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Type:</strong> {cast.type}
+            <strong>Photo:</strong>{" "}
+            <img src={cast.photo} style={{ objectFit: "contain", height: "200px", width: "100%" }} alt="" />
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Poster:</strong>{" "}
-            <img src={cast.photo} style={{ objectFit: "contain", height: "200px", width: "100%" }} />
-          </ListGroup.Item>       
+            <strong>Films:</strong>
+            <ListGroup>
+              {cast.films.map(film => (
+                <ListGroup.Item>{film.title}</ListGroup.Item>
+              ))}
+            </ListGroup>
+          </ListGroup.Item>
         </ListGroup>
       </Modal.Body>
       <Modal.Footer>
@@ -33,4 +38,4 @@ function CastViewModel(props) {
   )
 }
 
-export default CastViewModel
+export default CastViewModal

@@ -2,9 +2,9 @@ import { useContext } from "react"
 import { Button, Modal } from "react-bootstrap"
 import FilmsContext from "../utils/FilmsContext"
 
-function UserDeleteModel(props) {
-    const {show , setShow , userId} = props
-    const {deleteUser} = useContext(FilmsContext)
+function UserDeleteModal(props) {
+  const { deleteUser } = useContext(FilmsContext)
+  const { show, setShow, userId } = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
@@ -23,4 +23,4 @@ function UserDeleteModel(props) {
   )
 }
 
-export default UserDeleteModel
+export default UserDeleteModal

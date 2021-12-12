@@ -5,28 +5,46 @@ import { useEffect, useState } from "react"
 import { Route, Routes } from "react-router-dom"
 import { toast } from "react-toastify"
 import Sidebar from "./components/Sidebar"
-import Casts from "./pages/Casts"
 import Films from "./pages/Films"
+import FilmsContext from "./utils/FilmsContext"
+import Casts from "./pages/Casts"
 import Genres from "./pages/Genres"
 import Users from "./pages/Users"
-import FilmsContext from "./utils/FilmsContext"
 
 function App() {
   const [films, setFilms] = useState([])
-  const [casts , setCasts] = useState([])
-  const [actors , setActors] = useState([])
-  const [directors, setDirectors] = useState([])
-  const [genres , setGenres] = useState([])
-  const [users , setUser] = useState([])
+  const [casts, setCasts] = useState([])
+  const [genres, setGenres] = useState([])
+  const [users, setUsers] = useState([])
 
   const getFilms = async () => {
     const response = await axios.get("http://localhost:5000/api/films")
+
     setFilms(response.data)
+  }
+
+  const getCasts = async () => {
+    const response = await axios.get("http://localhost:5000/api/casts")
+    setCasts(response.data)
+  }
+
+  const getGenres = async () => {
+    const response = await axios.get("http://localhost:5000/api/genres")
+    setGenres(response.data)
+  }
+
+  const getUsers = async () => {
+    const response = await axios.get("http://localhost:5000/api/auth/users", {
+      headers: {
+        Authorization: localStorage.tokenDashboardFilms,
+      },
+    })
+    setUsers(response.data)
   }
 
   useEffect(() => {
     getFilms()
-    getCast()
+    getCasts()
     getGenres()
     getUsers()
   }, [])
@@ -38,7 +56,6 @@ function App() {
           Authorization: localStorage.tokenDashboardFilms,
         },
       })
-
       toast.success("film deleted")
       getFilms()
     } catch (error) {
@@ -46,58 +63,45 @@ function App() {
       else console.log(error)
     }
   }
-  const getCast = async () => {
-    const response = await axios.get("http://localhost:5000/api/casts") 
-    setCasts(response.data)
-    setActors(response.data.filter(cast => cast.type === "Actor"))
-    setDirectors(response.data.filter(cast => cast.type === "Director"))
-  }
-  const deleteCast = async (castId) => {
+
+  const deleteCast = async castId => {
     try {
-      await axios.delete(`http://localhost:5000/api/casts/${castId}` , {
-        headers : {
-          Authorization : localStorage.tokenDashboardFilms
-        }
+      await axios.delete(`http://localhost:5000/api/casts/${castId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
       })
-      getCast()
+      toast.success("Cast deleted")
+      getCasts()
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
     }
   }
-  const getGenres = async () => {
-    const response = await axios.get("http://localhost:5000/api/genres")
-    setGenres(response.data)
 
-  }
-  const deleteGenre = async (genreId) => {
+  const deleteGenre = async genreId => {
     try {
-      await axios.delete(`http://localhost:5000/api/genres/${genreId}` , {
-        headers : {
-          Authorization : localStorage.tokenDashboardFilms
-        }
+      await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
       })
+      toast.success("Genre deleted")
       getGenres()
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
     }
   }
-  const getUsers = async () => {
-    const response = await axios.get("http://localhost:5000/api/auth/users" , {
-      headers : {
-        Authorization : localStorage.tokenDashboardFilms
-      }
-    } )
-    setUser(response.data)
-  }
-  const deleteUser = async (userId) => {
+
+  const deleteUser = async userId => {
     try {
-      await axios.delete(`http://localhost:5000/api/auth/users/${userId}` , {
-        headers : {
-          Authorization : localStorage.tokenDashboardFilms
-        }
+      await axios.delete(`http://localhost:5000/api/auth/users/${userId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
       })
+      toast.success("user deleted")
       getUsers()
     } catch (error) {
       if (error.response) toast.error(error.response.data)
@@ -108,14 +112,12 @@ function App() {
   const store = {
     films,
     deleteFilm,
-    casts ,
-    actors ,
-    directors ,
-    deleteCast ,
-    genres ,
-    deleteGenre ,
-    users ,
-    deleteUser
+    casts,
+    deleteCast,
+    genres,
+    deleteGenre,
+    users,
+    deleteUser,
   }
 
   return (
@@ -123,6 +125,7 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
         <Sidebar />
+
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
@@ -135,4 +138,5 @@ function App() {
     </FilmsContext.Provider>
   )
 }
+
 export default App
