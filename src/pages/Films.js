@@ -21,6 +21,7 @@ function Films() {
       <tbody>
         {films.map(film => (
           <FilmCell key={film._id} film={film} />
+          
         ))}
       </tbody>
     </Table>
