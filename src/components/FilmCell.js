@@ -13,7 +13,7 @@ function FilmCell(props) {
       <td>{film.title}</td>
       <td style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>{film.description}</td>
       <td>
-        <img alt="" src={film.poster} style={{ objectFit: "contain", height: "100px", width: "100%" }} />
+        <img src={film.poster} style={{ objectFit: "contain", height: "100px", width: "100%" }} />
       </td>
       <td>{film.ratingAverage}</td>
       <td>

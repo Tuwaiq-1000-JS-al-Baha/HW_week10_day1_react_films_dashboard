@@ -1,6 +1,5 @@
-import { Button, ListGroup, Modal } from "react-bootstrap"
-
-function UserViewModal(props) {
+import { Button, Image, ListGroup, Modal } from "react-bootstrap"
+function UserViewModel(props) {
   const { show, setShow, user } = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
@@ -17,10 +16,10 @@ function UserViewModal(props) {
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Avatar:</strong>{" "}
-            <img src={user.avatar} style={{ objectFit: "contain", height: "200px", width: "100%" }} alt="" />
+            <img src={user.avatar} style={{ objectFit: "contain", height: "200px", width: "100%" }} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <strong>Rol:</strong> {user.role}
+            <strong>Role:</strong> {user.role}
           </ListGroup.Item>
         </ListGroup>
       </Modal.Body>
@@ -33,4 +32,4 @@ function UserViewModal(props) {
   )
 }
 
-export default UserViewModal
+export default UserViewModel

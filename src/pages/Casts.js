@@ -1,41 +1,28 @@
 import { useContext } from "react"
 import { Table } from "react-bootstrap"
+import CastCell from "../components/CastCell"
 import FilmsContext from "../utils/FilmsContext"
 
 function Casts() {
-  const { casts } = useContext(FilmsContext)
-  if (!casts) return <h1>Loading..</h1>
+  const { casts, directors } = useContext(FilmsContext)
   return (
-    <>
-      <Table bordered hover style={{ tableLayout: "fixed" }}>
-        <thead>
-          <tr>
-            <th style={{ width: "20%" }}>#</th>
-            <th style={{ width: "18%" }}>name </th>
-            <th style={{ width: "18%" }}>type</th>
-            <th style={{ width: "18%" }}>photo</th>
-            <th style={{ width: "18%" }}>films</th>
-            <th style={{ width: "34%" }}>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {casts.map(cast => (
-            <tr>
-              <td>{cast._id}</td>
-              <td>
-                {cast.firstName} {cast.lastName}
-              </td>
-              <td>
-                <img src={cast.photo} alt=""/>
-              </td>
-
-              <td>{cast.films}</td>
-              <td>{cast.type}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </>
+    <Table bordered hover style={{ tableLayout: "fixed" }}>
+      <thead>
+        <tr>
+          <th style={{ width: "9%" }}>#</th>
+          <th style={{ width: "18%" }}>FirstName</th>
+          <th style={{ width: "18%" }}>Last Name</th>
+          <th style={{ width: "18%" }}>Photo</th>
+          <th style={{ width: "18%" }}>Type</th>
+          <th style={{ width: "36%" }}>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {casts.map(cast => (
+          <CastCell casts={cast} key={cast._id} />
+        ))}
+      </tbody>
+    </Table>
   )
 }
 
