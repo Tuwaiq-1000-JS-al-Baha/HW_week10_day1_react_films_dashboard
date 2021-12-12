@@ -2,20 +2,20 @@ import { useContext } from "react"
 import { Button, Modal } from "react-bootstrap"
 import FilmsContext from "../utils/FilmsContext"
 
-function FilmDeleteModal(props) {
-  const { deleteFilm } = useContext(FilmsContext)
-  const { show, setShow, filmId } = props
+function UserDeleteModal(props) {
+  const { deleteUser } = useContext(FilmsContext)
+  const { show, setShow, userId } = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Delete Film</Modal.Title>
+        <Modal.Title>Delete User</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Are you sure to delete this film ?</Modal.Body>
+      <Modal.Body>Are you sure to delete this User ?</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={() => setShow(false)}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={() => deleteFilm(filmId)}>
+        <Button variant="danger" onClick={() => deleteUser(userId)}>
           Confirm
         </Button>
       </Modal.Footer>
@@ -23,4 +23,4 @@ function FilmDeleteModal(props) {
   )
 }
 
-export default FilmDeleteModal
+export default UserDeleteModal

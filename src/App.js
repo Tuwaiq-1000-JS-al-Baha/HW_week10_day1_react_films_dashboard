@@ -7,17 +7,46 @@ import { toast } from "react-toastify"
 import Sidebar from "./components/Sidebar"
 import Films from "./pages/Films"
 import FilmsContext from "./utils/FilmsContext"
+import Casts from "./pages/Casts"
+import Genres from "./pages/Genres"
+import Users from "./pages/Users"
 
 function App() {
   const [films, setFilms] = useState([])
+  const [casts, setCasts] = useState([])
+  const [genres, setGenres] = useState([])
+  const [users, setUsers] = useState([])
 
   const getFilms = async () => {
     const response = await axios.get("http://localhost:5000/api/films")
+
     setFilms(response.data)
+  }
+
+  const getCasts = async () => {
+    const response = await axios.get("http://localhost:5000/api/casts")
+    setCasts(response.data)
+  }
+
+  const getGenres = async () => {
+    const response = await axios.get("http://localhost:5000/api/genres")
+    setGenres(response.data)
+  }
+
+  const getUsers = async () => {
+    const response = await axios.get("http://localhost:5000/api/auth/users", {
+      headers: {
+        Authorization: localStorage.tokenDashboardFilms,
+      },
+    })
+    setUsers(response.data)
   }
 
   useEffect(() => {
     getFilms()
+    getCasts()
+    getGenres()
+    getUsers()
   }, [])
 
   const deleteFilm = async filmId => {
@@ -35,9 +64,60 @@ function App() {
     }
   }
 
+  const deleteCast = async castId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/casts/${castId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("Cast deleted")
+      getCasts()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const deleteGenre = async genreId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("Genre deleted")
+      getGenres()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const deleteUser = async userId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/auth/users/${userId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("user deleted")
+      getUsers()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
   const store = {
     films,
     deleteFilm,
+    casts,
+    deleteCast,
+    genres,
+    deleteGenre,
+    users,
+    deleteUser,
   }
 
   return (
@@ -49,6 +129,9 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
+            <Route path="/casts" element={<Casts />} />
+            <Route path="/genres" element={<Genres />} />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </Box>
       </Box>
