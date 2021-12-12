@@ -10,14 +10,28 @@ import FilmsContext from "./utils/FilmsContext"
 
 function App() {
   const [films, setFilms] = useState([])
+  const [genres, setGenres] = useState([])
+  const [casts, setCasts] = useState([])
 
   const getFilms = async () => {
     const response = await axios.get("http://localhost:5000/api/films")
     setFilms(response.data)
   }
 
+  const getGenres = async () => {
+    const response = await axios.get("http://localhost:5000/api/genres")
+    setGenres(response.data)
+  }
+
+  const getCasts = async () => {
+    const response = await axios.get("http://localhost:5000/api/casts")
+    setCasts(response.data)
+  }
+
   useEffect(() => {
     getFilms()
+    getGenres()
+    getCasts()
   }, [])
 
   const deleteFilm = async filmId => {
@@ -34,10 +48,43 @@ function App() {
       else console.log(error)
     }
   }
+  const deleteGenre = async genreId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("Genre deleted")
+      getGenres()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const deleteCast = async castId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/casts/${castId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("Cast deleted")
+      getCasts()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
 
   const store = {
     films,
+    genres,
+    casts,
     deleteFilm,
+    deleteGenre,
+    deleteCast,
   }
 
   return (
@@ -45,7 +92,6 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
         <Sidebar />
-
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
@@ -55,5 +101,4 @@ function App() {
     </FilmsContext.Provider>
   )
 }
-
 export default App
