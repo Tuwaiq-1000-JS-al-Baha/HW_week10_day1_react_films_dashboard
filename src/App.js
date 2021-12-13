@@ -9,23 +9,34 @@ import Films from "./pages/Films"
 import Casts from "./pages/Casts"
 import FilmsContext from "./utils/FilmsContext"
 import Genres from "./pages/Genres"
+import Users from "./pages/Users"
 
 function App() {
   const [films, setFilms] = useState([])
   const [casts, setcasts] = useState([])
   const [genres, setGenres] = useState([])
+  const [users, setUsers] = useState([])
 
+  // get films
   const getFilms = async () => {
     const response = await axios.get("http://localhost:5000/api/films")
     setFilms(response.data)
   }
 
+  // get users
+  const getUsers = async () => {
+    const response = await axios.get("http://localhost:5000/api/auth/users")
+    setUsers(response.data)
+  }
+
+  // get casts
   const getCasts = async () => {
     const response = await axios.get("http://localhost:5000/api/casts")
     setcasts(response.data)
     getFilms()
   }
 
+  // get genres
   const getGenres = async () => {
     const response = await axios.get("http://localhost:5000/api/genrs")
     setGenres(response.data)
@@ -33,10 +44,12 @@ function App() {
 
   useEffect(() => {
     getFilms()
+    getUsers()
     getCasts()
     getGenres()
   }, [])
 
+  // delete film
   const deleteFilm = async filmId => {
     try {
       await axios.delete(`http://localhost:5000/api/films/${filmId}`, {
@@ -52,6 +65,23 @@ function App() {
     }
   }
 
+  // delete user
+  const deleteUser = async userId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/auth/users/${userId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("user deleted")
+      getUsers()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  // delete cast
   const deleteCast = async castId => {
     try {
       await axios.delete(`http://localhost:5000/api/casts/${castId}`, {
@@ -67,6 +97,7 @@ function App() {
     }
   }
 
+  // delete genres
   const deleteGenre = async genreId => {
     try {
       await axios.delete(`http://localhost:5000/api/genrs/${genreId}`, {
@@ -86,7 +117,9 @@ function App() {
     films,
     casts,
     genres,
+    users,
     deleteFilm,
+    deleteUser,
     deleteGenre,
     deleteCast,
   }
@@ -102,6 +135,7 @@ function App() {
             <Route path="/films" element={<Films />} />
             <Route path="/casts" element={<Casts />} />
             <Route path="/genres" element={<Genres />} />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </Box>
       </Box>
