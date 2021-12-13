@@ -18,7 +18,9 @@ function CastViewModal(props) {
                 <strong>Films:</strong> {film.title}
               </ListGroup.Item>
             ))}
-
+            <ListGroup.Item>
+              <strong>Type:</strong> {cast.type}
+            </ListGroup.Item>
             <ListGroup.Item>
               <strong>Photo:</strong>{" "}
               <img src={cast.photo} style={{ objectFit: "contain", height: "200px", width: "100%" }} />

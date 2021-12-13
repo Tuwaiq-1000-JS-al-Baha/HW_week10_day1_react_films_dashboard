@@ -16,17 +16,33 @@ function App() {
   const [casts, setCasts] = useState([])
 
   const getFilms = async () => {
-    const response = await axios.get("http://localhost:5000/api/films")
-    setFilms(response.data)
+    try {
+      const response = await axios.get("http://localhost:5000/api/films")
+      setFilms(response.data)
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
   }
   const getGenres = async () => {
-    const response = await axios.get("http://localhost:5000/api/genres")
-    setGenres(response.data)
+    try {
+      const response = await axios.get("http://localhost:5000/api/genres")
+      setGenres(response.data)
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
   }
 
   const getCasts = async () => {
-    const response = await axios.get("http://localhost:5000/api/casts")
-    setCasts(response.data)
+    try {
+      const response = await axios.get("http://localhost:5000/api/casts")
+      setCasts(response.data)
+      console.log(response.data)
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
   }
 
   useEffect(() => {
@@ -58,7 +74,22 @@ function App() {
         },
       })
       toast.success("genre deleted")
-      getFilms()
+      getGenres()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const deleteCast = async castId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/genres/${castId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardFilms,
+        },
+      })
+      toast.success("cast deleted")
+      getCasts()
     } catch (error) {
       if (error.response) toast.error(error.response.data)
       else console.log(error)
@@ -71,6 +102,7 @@ function App() {
     deleteGenre,
     genres,
     casts,
+    deleteCast,
   }
 
   return (
