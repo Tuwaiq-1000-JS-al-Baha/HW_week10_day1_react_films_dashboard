@@ -1,12 +1,14 @@
 import { useState } from "react"
 import { Button } from "react-bootstrap"
 import GenreDeleteModal from "./genreDeleteModal"
+import GenreEditModal from "./GenreEditModal"
 import GenreViewModal from "./GenreViewModal"
 
 function GenresCell(props) {
   const { genre } = props
   const [viewShow, setViewShow] = useState(false)
   const [deleteShow, setDeleteShow] = useState(false)
+  const [editShow, setEditShow] = useState(false)
   return (
     <tr style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>
       <td style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{genre._id}</td>
@@ -15,7 +17,7 @@ function GenresCell(props) {
         <Button variant="info" className="me-2" onClick={() => setViewShow(true)}>
           View
         </Button>
-        <Button variant="success" className="me-2">
+        <Button variant="success" className="me-2" onClick={() => setEditShow(true)}>
           Edit
         </Button>
         <Button variant="danger" onClick={() => setDeleteShow(true)}>
@@ -23,6 +25,7 @@ function GenresCell(props) {
         </Button>
       </td>
       <GenreViewModal show={viewShow} setShow={setViewShow} genre={genre} />
+      <GenreEditModal show={editShow} setShow={setEditShow} genre={genre} />
       <GenreDeleteModal show={deleteShow} setShow={setDeleteShow} genreId={genre._id} />
     </tr>
   )

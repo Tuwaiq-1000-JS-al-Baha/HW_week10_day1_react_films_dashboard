@@ -89,22 +89,16 @@ export default function PermanentDrawerLeft() {
               <ListItemText primary="users" sx={{ color: "white", textDecoration: "none" }} />
             </ListItem>
           </Link>
-          <Link to="/signup">
-            <ListItem button>
-              <ListItemIcon>
-                <MovieCreationIcon />
-              </ListItemIcon>
-              <ListItemText primary="signup" sx={{ color: "white", textDecoration: "none" }} />
-            </ListItem>
-          </Link>
-          <Link to="/login">
-            <ListItem button>
-              <ListItemIcon>
-                <MovieCreationIcon />
-              </ListItemIcon>
-              <ListItemText primary="login" sx={{ color: "white", textDecoration: "none" }} />
-            </ListItem>
-          </Link>
+          <List>
+            <Link to="/login">
+              <ListItem button>
+                <ListItemIcon>
+                  <MovieCreationIcon />
+                </ListItemIcon>
+                <ListItemText primary="login" sx={{ color: "white", textDecoration: "none" }} />
+              </ListItem>
+            </Link>
+          </List>
         </List>
       </Drawer>
     </ThemeProvider>

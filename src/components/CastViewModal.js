@@ -17,11 +17,27 @@ function CastViewModal(props) {
           </ListGroup.Item>
           <ListGroup.Item>
             <strong> Photo:</strong>{" "}
-            <img src={cast.photo} style={{ objectFit: "contain", height: "200px", width: "100%" }} />
+            <Image src={cast.photo} style={{ objectFit: "contain", height: "200px", width: "100%" }} />
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Type:</strong> {cast.type}
           </ListGroup.Item>
+        </ListGroup>
+        <ListGroup>
+          {cast.films.map(film => (
+            <>
+              <ListGroup.Item>
+                <strong>Title:</strong> {film.title}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Description:</strong> {film.description}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Poster:</strong>{" "}
+                <Image src={film.poster} style={{ objectFit: "contain", height: "200px", width: "100%" }} />
+              </ListGroup.Item>
+            </>
+          ))}
         </ListGroup>
       </Modal.Body>
       <Modal.Footer>
