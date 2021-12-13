@@ -23,9 +23,6 @@ function UserCell(props) {
         <Button variant="info" className="me-2" onClick={() => setViewShow(true)}>
           View
         </Button>
-        <Button variant="success" className="me-2">
-          Edit
-        </Button>
         <Button variant="danger" onClick={() => setDeleteShow(true)}>
           Delete
         </Button>
