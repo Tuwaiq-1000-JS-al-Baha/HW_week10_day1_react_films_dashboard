@@ -13,7 +13,12 @@ function CastCell(props) {
       <td style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}>{cast._id}</td>
       <td>{cast.firstName}</td>
       <td>{cast.lastName}</td>
-      <td style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>{cast.Films}</td>
+      <td style={{ verticalAlign: "middle", tableLayout: "fixed", wordWrap: "break-word" }}>
+        {cast.films.map(film => (
+          <p> {film.title}</p>
+        ))}
+      </td>
+
       <td>
         <img src={cast.photo} style={{ objectFit: "contain", height: "100px", width: "100%" }} />
       </td>

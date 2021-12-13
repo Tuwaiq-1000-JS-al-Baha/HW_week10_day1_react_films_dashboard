@@ -1,4 +1,3 @@
-import * as React from "react"
 import Box from "@mui/material/Box"
 import Drawer from "@mui/material/Drawer"
 import CssBaseline from "@mui/material/CssBaseline"
@@ -19,10 +18,13 @@ import GroupIcon from "@mui/icons-material/Group"
 import TheatersIcon from "@mui/icons-material/Theaters"
 import { createTheme, ThemeProvider } from "@mui/material"
 import { Link } from "react-router-dom"
+import FilmsContext from "../utils/FilmsContext"
+import { useContext } from "react"
 
 const drawerWidth = 240
 
 export default function PermanentDrawerLeft() {
+  const { logout } = useContext(FilmsContext)
   return (
     <ThemeProvider
       theme={createTheme({
@@ -97,6 +99,29 @@ export default function PermanentDrawerLeft() {
             </ListItem>
           </Link>
         </List>
+        {!localStorage.tokenDashboardFilms ? (
+          <List>
+            <Link to="/login">
+              <ListItem button>
+                <ListItemIcon>
+                  <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary="Login" sx={{ color: "white", textDecoration: "none" }} />
+              </ListItem>
+            </Link>
+          </List>
+        ) : (
+          <List>
+            <Link to="/" onClick={logout}>
+              <ListItem button>
+                <ListItemIcon>
+                  <GroupIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" sx={{ color: "white", textDecoration: "none" }} />
+              </ListItem>
+            </Link>
+          </List>
+        )}
       </Drawer>
     </ThemeProvider>
   )
