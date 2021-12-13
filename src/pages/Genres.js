@@ -2,10 +2,10 @@
 import { useContext } from "react"
 import { Table } from "react-bootstrap"
 import FilmsContext from "../utils/FilmsContext"
-import FilmCell from "../components/FilmCell"
+import GenreCell from "../components/GenreCell"
 
-function Films() {
-  const { films } = useContext(FilmsContext)
+function Genres() {
+  const { genres } = useContext(FilmsContext)
   return (
     <Table bordered hover style={{ tableLayout: "fixed" }}>
       <thead>
@@ -19,12 +19,12 @@ function Films() {
         </tr>
       </thead>
       <tbody>
-        {films.map(film => (
-          <FilmCell key={film._id} film={film} />
+        {genres.map(genre => (
+          <GenreCell key={genre._id} genre={genre} />
         ))}
       </tbody>
     </Table>
   )
 }
 
-export default Films
+export default Genres

@@ -6,18 +6,36 @@ import { Route, Routes } from "react-router-dom"
 import { toast } from "react-toastify"
 import Sidebar from "./components/Sidebar"
 import Films from "./pages/Films"
+import Genres from "./pages/Genres"
+import Casts from "./pages/Casts"
 import FilmsContext from "./utils/FilmsContext"
+import { useNavigate } from "react-router-dom"
+
 
 function App() {
   const [films, setFilms] = useState([])
+  const [genres, setGenres] = useState([])
+  const [casts, setCasts] = useState([])
+
+  const navigate = useNavigate()
 
   const getFilms = async () => {
     const response = await axios.get("http://localhost:5000/api/films")
     setFilms(response.data)
   }
+  const getGenres = async () => {
+    const response = await axios.get("http://localhost:5000/api/genres")
+    setGenres(response.data)
+  }
+  const getCasts = async () => {
+    const response = await axios.get("http://localhost:5000/api/casts")
+    setCasts(response.data)
+  }
 
   useEffect(() => {
     getFilms()
+    getGenres()
+    getCasts()
   }, [])
 
   const deleteFilm = async filmId => {
@@ -35,9 +53,45 @@ function App() {
     }
   }
 
+  //---------------------------------------------------------------------------------------------
+  const deleteGenre = async genreId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardGenres,
+        },
+      })
+      toast.success("genre deleted")
+      getGenres()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+  //------------------------------------------------------------------------
+  const deleteCast = async castId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/casts/${castId}`, {
+        headers: {
+          Authorization: localStorage.tokenDashboardCasts,
+        },
+      })
+      toast.success("cast deleted")
+      getCasts()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
   const store = {
     films,
     deleteFilm,
+    genres,
+    deleteGenre,
+    casts,
+    deleteCast,
+    
   }
 
   return (
@@ -49,6 +103,9 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
+            <Route path="/genres" element={<Genres />} />
+            <Route path="/casts" element={<Casts />} />
+          
           </Routes>
         </Box>
       </Box>

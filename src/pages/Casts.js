@@ -1,11 +1,10 @@
-// import { Button } from "react-bootstrap"
 import { useContext } from "react"
 import { Table } from "react-bootstrap"
 import FilmsContext from "../utils/FilmsContext"
-import FilmCell from "../components/FilmCell"
-
-function Films() {
-  const { films } = useContext(FilmsContext)
+import CastsCell from "../components/CastsCell"
+import CastCell from "../components/CastsCell"
+function Casts() {
+  const { casts } = useContext(FilmsContext)
   return (
     <Table bordered hover style={{ tableLayout: "fixed" }}>
       <thead>
@@ -19,12 +18,12 @@ function Films() {
         </tr>
       </thead>
       <tbody>
-        {films.map(film => (
-          <FilmCell key={film._id} film={film} />
+        {casts.map(cast => (
+          <CastCell key={cast._id} cast={cast} />
         ))}
       </tbody>
     </Table>
   )
 }
 
-export default Films
+export default Casts
