@@ -11,6 +11,8 @@ function Genres() {
         <tr>
           <th style={{ width: "9%" }}>#</th>
           <th style={{ width: "18%" }}>Name</th>
+          <th style={{ width: "30%" }}>Action</th>
+
         </tr>
       </thead>
       <tbody>

@@ -13,6 +13,8 @@ import FilmsContext from "./utils/FilmsContext"
 function App() {
   const [films, setFilms] = useState([])
   const [genres, setGenres] = useState([])
+  const [actors , setActors] = useState([])
+  const [directors, setDirectors] = useState([])
   const [casts, setCasts] = useState([])
 
   const getFilms = async () => {
@@ -27,9 +29,12 @@ function App() {
   }
 
   const getCast = async () => {
-    const response = await axios.get("http://localhost:5000/api/cast")
+    const response = await axios.get("http://localhost:5000/api/casts")
     setCasts(response.data)
+    setActors(response.data.filter(cast => cast.type === "Actor"))
+    setDirectors(response.data.filter(cast => cast.type === "Director"))
   }
+
   useEffect(() => {
     getFilms()
     getGenres()
@@ -95,6 +100,8 @@ function App() {
     deleteGenre,
     casts,
     deleteCast,
+    actors,
+    directors,
   }
 
   return (
@@ -106,7 +113,7 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
-            <Route path="/genres" element={<Genres />} />
+              <Route path="/genres" element={<Genres />} />
             <Route path="/casts" element={<Cast />} />
           </Routes>
         </Box>

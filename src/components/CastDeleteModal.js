@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { Button, Image, ListGroup, Modal } from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
 import FilmsContext from "../utils/FilmsContext"
 
 function CastDeleteModal(props) {
