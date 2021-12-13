@@ -9,9 +9,9 @@ function CastDeleteModal(props) {
     <>
       <Modal deleteCastShow={deleteCastShow} onHide={() => setDeleteCastShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Film</Modal.Title>
+          <Modal.Title>Delete Cast</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure to delete this film ?</Modal.Body>
+        <Modal.Body>Are you sure to delete this Cast ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setDeleteCastShow(false)}>
             Cancel
