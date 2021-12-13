@@ -23,7 +23,7 @@ function App() {
   }
 
   const getGenres = async () => {
-    const response = await axios.get("http://localhost:5000/api/genres")
+    const response = await axios.get("http://localhost:5000/api/genre")
     console.log(response.data)
     setGenres(response.data)
   }
@@ -31,7 +31,7 @@ function App() {
   const getCast = async () => {
     const response = await axios.get("http://localhost:5000/api/casts")
     setCasts(response.data)
-    setActors(response.data.filter(cast => cast.type === "Actor"))
+    setActors(response.data.filter(cast => cast.type === "Actors"))
     setDirectors(response.data.filter(cast => cast.type === "Director"))
   }
 

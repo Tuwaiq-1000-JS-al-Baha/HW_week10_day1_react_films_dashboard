@@ -1,4 +1,4 @@
-import { Button, Image, ListGroup, Modal } from "react-bootstrap"
+import { Button, ListGroup, Modal } from "react-bootstrap"
 
 function GenreViewModal(props) {
   const { show, setShow, genre } = props
