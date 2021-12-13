@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import FilmsContext from "../utils/FilmsContext";
-import GenreViewModel from "./GenreViewModel";
+import CastViewModel  from "./CastViewModel";
 
 function GenresCell(props) {
   const { casts } = useContext(FilmsContext);
   const { film } = props;
   const [viewShow, setViewShow] = useState(false);
+  const [deleteShow, setDeleteShow] = useState(false)
+
 
   return (
     <tr
@@ -30,6 +32,9 @@ function GenresCell(props) {
         >
           View
         </Button>
+        <Button variant="danger" onClick={() => setDeleteShow(true)}>
+          Delete
+        </Button>
       </td>
 
           </tr>
@@ -37,7 +42,7 @@ function GenresCell(props) {
       </tobody>
        
       
-      <GenreViewModel show={viewShow} setShow={setViewShow} film={film} />
+      <CastViewModel show={viewShow} setShow={setViewShow} film={film} />
     </tr>
       
         )
