@@ -11,7 +11,6 @@ import Casts from "./pages/Casts"
 import FilmsContext from "./utils/FilmsContext"
 import { useNavigate } from "react-router-dom"
 
-
 function App() {
   const [films, setFilms] = useState([])
   const [genres, setGenres] = useState([])
@@ -58,7 +57,7 @@ function App() {
     try {
       await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
         headers: {
-          Authorization: localStorage.tokenDashboardGenres,
+          Authorization: localStorage.tokenDashboardFilms,
         },
       })
       toast.success("genre deleted")
@@ -73,7 +72,7 @@ function App() {
     try {
       await axios.delete(`http://localhost:5000/api/casts/${castId}`, {
         headers: {
-          Authorization: localStorage.tokenDashboardCasts,
+          Authorization: localStorage.tokenDashboardFilms,
         },
       })
       toast.success("cast deleted")
@@ -91,7 +90,6 @@ function App() {
     deleteGenre,
     casts,
     deleteCast,
-    
   }
 
   return (
@@ -105,7 +103,6 @@ function App() {
             <Route path="/films" element={<Films />} />
             <Route path="/genres" element={<Genres />} />
             <Route path="/casts" element={<Casts />} />
-          
           </Routes>
         </Box>
       </Box>

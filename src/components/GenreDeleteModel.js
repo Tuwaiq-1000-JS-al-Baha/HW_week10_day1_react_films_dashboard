@@ -4,7 +4,7 @@ import FilmsContext from "../utils/FilmsContext"
 
 function GenreDeleteModal(props) {
   const { deleteGenre } = useContext(FilmsContext)
-  const { show, setShow, genres } = props
+  const { show, setShow, genreId } = props
   return (
     <Modal show={show} onHide={() => setShow(false)}>
       <Modal.Header closeButton>
@@ -15,7 +15,7 @@ function GenreDeleteModal(props) {
         <Button variant="secondary" onClick={() => setShow(false)}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={() => deleteGenre(genres)}>
+        <Button variant="danger" onClick={() => deleteGenre(genreId)}>
           Confirm
         </Button>
       </Modal.Footer>
