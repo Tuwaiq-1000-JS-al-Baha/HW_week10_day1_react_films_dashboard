@@ -10,6 +10,7 @@ function Films() {
     <Table bordered hover style={{ tableLayout: "fixed" }}>
       <thead>
         <tr>
+          
           <th style={{ width: "9%" }}>#</th>
           <th style={{ width: "18%" }}>Title</th>
           <th style={{ width: "18%" }}>Description</th>
