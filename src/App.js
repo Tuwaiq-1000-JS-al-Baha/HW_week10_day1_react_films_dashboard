@@ -11,6 +11,8 @@ import FilmsContext from "./utils/FilmsContext"
 
 function App() {
   const [films, setFilms] = useState([])
+  const [genres, setGenres] = useState([])
+  const [casts, setCasts] = useState([])
   // const [generes,setGeneres]= useState 
 
   const getFilms = async () => {
@@ -20,6 +22,7 @@ function App() {
 
   useEffect(() => {
     getFilms()
+    getGenres()
   }, [])
 
   const deleteFilm = async filmId => {
@@ -36,11 +39,55 @@ function App() {
       else console.log(error)
     }
   }
+//-------------------------genres----------------------------//
+const getGenres =async()=>{
+  const response = await axios.get("http://localhost:5000/api/genres")
+  setGenres(response.data)
+}
 
+const deleteGenre=async genreId=>{
+  try {
+    await axios.delete(`http://localhost:5000/api/genres/${genreId}`, {
+      headers: {
+        Authorization: localStorage.tokenDashboardFilms,
+      },
+    })
+    toast.success("genre deleted")
+  getGenres()
+  } catch (error) {
+    if (error.response) toast.error(error.response.data)
+    else console.log(error)
+  }
+}
+
+//-----------------------------casts---------------------------------//
+
+const getCast= async ()=>{
+  const response = await axios.get("http://localhost:5000/api/genres")
+  setGenres(response.data)
+}
+const deleteCast=async castId=>{
+  try {
+    await axios.delete(`http://localhost:5000/api/genres/${castId}`, {
+      headers: {
+        Authorization: localStorage.tokenDashboardFilms,
+      },
+    })
+    toast.success("genre deleted")
+  getCasts()
+  } catch (error) {
+    if (error.response) toast.error(error.response.data)
+    else console.log(error)
+  }
+}
   const store = {
     films,
     deleteFilm,
-    Genres
+    genres,
+    deleteGenre,
+    casts,
+    deleteCast,
+
   }
 
   return (
@@ -52,7 +99,8 @@ function App() {
         <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
           <Routes>
             <Route path="/films" element={<Films />} />
-            <Route path="/generes" element={<Genres />} />
+            <Route path="/genres" element={<Genres />} />
+            <Route path="/casts" element={<Casts/>} />
           </Routes>
         </Box>
       </Box>
